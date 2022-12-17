@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <!-- JS & CSS library of MultiSelect plugin -->
+<script type="text/javascript" src="{{ url_for('static',filename='script/jquery.multi-select.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/multi-select.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Results</title>
+</head>
+  <body>
+  <h2 style="padding: 15; text-align: center;"> MCPP locations ranked by the number of crimes of your selected crime type({{total}} Results)</h2>
+  
+  <div class = "flex-container">
+<!-- Put this in a scrollable box -->
+    <div class="scroll"> 
+      <ol>
+        {% for location in list %}
+        <li> {{location[0]}} - {{location[1]}} results</li>
+        {% endfor %}
+      </ol>
+    </div>
+    
+ 
+    <div>
+      *Red markers represents mcpp locations that you've chosen*</br>
+      *Blue P represents a police station*
+      <div id="mapMedium" text-align: justify></div>   
+    </div>
+  </div>
+    
+
+  <script type="text/javascript">
+    const plots = {{plots|tojson}}
+    console.log(plots)
+    function initMap() {
+      const LatLngCenter = { lat: 47.6097, lng: -122.3331 };
+      map = new google.maps.Map(document.getElementById('mapMedium'), {
+        center:LatLngCenter,
+        zoom: 11,
+        styles: [
+      { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+      {
+        featureType: "administrative.locality",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#f8f9f9" }],
+      },
+      {
+        featureType: "poi",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "geometry",
+        stylers: [{ color: "#263c3f" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#6b9a76" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ color: "#38414e" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#212a37" }],
+      },
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#9ca5b3" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry",
+        stylers: [{ color: "#746855" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#1f2835" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#f3d19c" }],
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [{ color: "#2f3948" }],
+      },
+      {
+        featureType: "transit.station",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [{ color: "#17263c" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#515c6d" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.stroke",
+        stylers: [{ color: "#17263c" }],
+      },
+    ],
+
+      });
+    
+      const policeStations= [
+          [{lat: 47.60444157585695, lng: -122.32901623504706},"Police Headquarters"],
+          [{lat: 47.70311934719192, lng: -122.3348942171906}, "North Precinct"],
+          [{lat: 47.7031265674002, lng: -122.33469036931594}, "West Precinct"], 
+          [{lat: 47.615501536656204, lng: -122.31747113863186}, "East Precinct"], 
+          [{lat: 47.53870847251913, lng: -122.29335439815144}, "South Precinct"],
+          [{lat: 47.53612038978463, lng: -122.36200425008882}, "Southwest Precinct"],
+          [{lat: 47.65498456890645, lng: -122.3121845650886},"University District"]
+          ];
+    
+      // new google.maps.Marker({
+      //   position: LatLngCenter,
+      //   map,
+      //   title: "Hello World!",
+      // });
+      var iconBase= "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+
+      for(i = 0; i < policeStations.length; i++) {
+        new google.maps.Marker({
+          position: policeStations[i][0], 
+          map,
+          title: policeStations[i][1],
+          icon: iconBase + 'parking_lot_maps.png'
+        });
+      }
+      
+      for(i = 0; i < plots.length; i++) {
+        new google.maps.Marker({
+          position: plots[i],
+          map,
+          title: "top ten location",
+        });
+      }
+    
+      
+    }
+  </script>
+  <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkLGvS8jgY3dcDC6wKzyHahN-8IMh4ifk&callback=initMap">
+  </script>
+    
+      
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<head>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- JS & CSS library of MultiSelect plugin -->
+<script type="text/javascript" src="{{ url_for('static',filename='script/jquery.multi-select.js') }}">
+  
+</script>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/multi-select.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="flex-container" style="text-align: center;">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="75px" height="75px" style="padding-left: 15px;"><path fill="#66757F" d="M34 33c0 1.104-.896 2-2 2h-3c-1.104 0-2-.896-2-2v-8c0-1.104.896-2 2-2h3c1.104 0 2 .896 2 2v8zM9 33c0 1.104-.896 2-2 2H4c-1.104 0-2-.896-2-2v-8c0-1.104.896-2 2-2h3c1.104 0 2 .896 2 2v8zM5 15.5c0 .829-.671 1.5-1.5 1.5h-2C.671 17 0 16.329 0 15.5S.671 14 1.5 14h2c.829 0 1.5.671 1.5 1.5zm26 0c0 .829.672 1.5 1.5 1.5h2c.828 0 1.5-.671 1.5-1.5s-.672-1.5-1.5-1.5h-2c-.828 0-1.5.671-1.5 1.5z"/><path fill="#CCD6DD" d="M9 5c4-1 14-1 18 0 3.881.97 5 11 5 11s2 0 2 4v8s0 3-3 4c-3.911 1.304-8 1-13 1s-9.088.304-13-1c-3-1-3-4-3-4v-8s0-4 2-4C4 16 5.12 5.97 9 5z"/><path fill="#292F33" d="M18 21c-5.718 0-11.136-.101-16-.279V28s0 3 3 4c3.912 1.304 8 1 13 1s9.089.304 13-1c3-1 3-4 3-4v-7.279c-4.864.178-10.282.279-16 .279z"/><path fill="#55ACEE" d="M18 15c3.905 0 8.623.2 12 .561L29 10c-1-3-7-3-11-3S8 7 7 10l-1 5.561C9.377 15.2 14.095 15 18 15z"/><path fill="#CCD6DD" d="M12 24c0 1.104-.896 2-2 2H6c-1.104 0-2-.896-2-2s.896-2 2-2h4c1.104 0 2 .896 2 2zm12 0c0 1.104.896 2 2 2h4c1.104 0 2-.896 2-2s-.896-2-2-2h-4c-1.104 0-2 .896-2 2z"/><path fill="#66757F" d="M29 28.5c0 .828-.672 1.5-1.5 1.5h-19c-.829 0-1.5-.672-1.5-1.5S7.671 27 8.5 27h19c.828 0 1.5.672 1.5 1.5z"/><path fill="#99AAB5" d="M11.999 21c-.15 0-.303-.034-.446-.105l-6-3c-.494-.247-.694-.848-.447-1.342.247-.494.846-.696 1.342-.447l6 3c.494.247.694.848.447 1.342-.176.35-.529.552-.896.552zm12.002 0c-.367 0-.72-.202-.896-.553-.247-.494-.047-1.095.447-1.342l6-3c.494-.246 1.094-.046 1.342.447.247.494.047 1.095-.447 1.342l-6 3c-.143.072-.296.106-.446.106z"/><path fill="#DD2E44" d="M18 3.5c0 .829-.671 1.5-1.5 1.5h-7C8.671 5 8 4.329 8 3.5S8.671 2 9.5 2h7c.829 0 1.5.671 1.5 1.5z"/><path fill="#55ACEE" d="M28 3.5c0 .829-.672 1.5-1.5 1.5h-7c-.829 0-1.5-.671-1.5-1.5S18.671 2 19.5 2h7c.828 0 1.5.671 1.5 1.5z"/><path fill="#F5F8FA" d="M16 2h4v3h-4z"/></svg>
+    </div> 
+
+    <div>
+      <h1 style = "padding: 19px;"> SPD Crime Data Visualizer</h1>
+    </div> 
+
+    
+      
+  </div>  
+
+
+
+<div class="flex-container">
+    <form action="gresponse" method="get" autocomplete="off">
+      <!-- function selector -->
+      <div style = "padding-top: 15px; text-align: center;">
+        <label for="user_request">What do you want to do?</label>
+        <div style = "padding-left: 15; padding-bottom:10;">
+          <select id="user_request" name="user_request" class="boxLarge">
+            <option value="locations_ranking" selected>Find mcpps(s) with most kind of crime(s)</option>
+            <option value="most_common">Find most common crime(s) at mcpp(s)</option>
+           
+          </select>
+        </div>
+      </div> 
+
+      <!-- Start year -->
+      <div style = "padding-bottom: 10px; padding-right: px; padding-top: 10px; padding-left: 15px; text-align: left;">
+        <label for="start_year_in"> start:</label> 
+        <select id="start_year_in" name="start_year_in" class="boxsmall">
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+        </select>
+
+        <!--end year -->
+        <label for="end_year_in">end:</label>
+        <select id="end_year_in" name="end_year_in" class="boxsmall" >
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020" selected>2020</option>
+        </select>
+      </div>
+
+      <!-- Crime groups filter -->
+      <div style = "padding-left: 15; padding-bottom:10;">
+      <label for="crime_type">Select crime offense groups to filter by</label>
+      <select multiple="multiple" id="my-select" name="crime_type">
+        <option value='DRUG/NARCOTIC OFFENSES'>Drug/Narcotic Offenses</option>
+        <option value='LARCENY-THEFT'>Larceny-Theft</option>
+        <option value='ROBBERY'>Robbery</option>
+        <option value='DESTRUCTION/DAMAGE/VANDALISM OF PROPERTY'>Destruction/Damage/Vandalism of Property</option>
+        <option value='DRIVING UNDER THE INFLUENCE'>Driving Under The influence</option>
+        <option value='FRAUD OFFENSES'>Fraud Offenses</option>
+        <option value='KIDNAPPING/ABDUCTION'>Kidnapping/Abduction</option>
+        <option value='COUNTERFEITING/FORGERY'>Counterfeiting/Forgery</option>
+        <option value='PORNOGRAPHY/OBSCENE MATERIAL'>Pornography/Obscene Material</option>
+        <option value='EXTORTION/BLACKMAIL'>Extortion/Blackmail</option>
+        <option value='MOTOR VEHICLE THEFT'>Motor Vehicle Theft</option>
+        <option value='SEX OFFENSES'>Sex Offenses</option>
+        <option value='STOLEN PROPERTY OFFENSES'>Stolen Property Offenses</option>
+        <option value='EMBEZZLEMENT'>Embezzlement</option>
+        <option value='WEAPON LAW VIOLATIONS'>Weapon Law Violations</option>
+        <option value='ARSON'>Arson</option>
+        <option value='HUMAN TRAFFICKING'>Human Trafficking</option>
+        <option value='LIQUOR LAW VIOLATIONS'>Liquor Law Violations</option>
+        <option value='BAD CHECKS'>Bad Checks</option>
+        <option value='PROSTITUTION OFFENSES'>Prostitution Offenses</option>
+        <option value='FAMILY OFFENSES NONVIOLENT'>Family Offenses(Non-Violent)</option>
+        <option value='CURFEW/LOITERING/VAGRANCY VIOLATIONS'>Curfew/Loitering/Vagrancy Violations</option>
+        <option value='ANIMAL CRUELTY'>Animal Cruelty</option>
+        <option value='HOMICIDE OFFENSES'>Homicide Offenses</option>
+        <option value='PEEPING TOM'>Peeping Tom</option>
+        <option value='DRUNKENNESS'>Drunkenness</option>
+        <option value='SEX OFFENSES CONSENSUAL'>Sex Offenses Consensual</option>
+        <option value='BRIBERY'>Bribery</option>
+        <option value='GAMBLING OFFENSES'>Gambling Offenses</option>
+      </select>
+      </div>
+
+      <!-- Location filter -->
+      <div style = "padding-left: 15; padding-bottom:10; text-align: center;">
+        <label for="crime_type" style=>Select locations to filter by</label>
+        <select multiple="multiple" id="my-select2" name="mcpp">
+          {% for location in list %}
+          <option value = "{{location}}">{{location}}</option>
+          {% endfor %}
+        </select>
+      <!-- </div> -->
+      
+      <!-- Submit Fform -->
+      <div style = "padding-left: 10px; padding-top: 10;">
+        <input type="submit" value="Submit" name="list_btn" style = "height: 30px; width: 350px"/>
+      </div>
+    </form>
+
+  
+</div>
+  <!-- How do I center this map? -->
+  <div>
+    *Blue P on map represents a police station*
+    <div id="map"></div>
+  </div>
+
+<script>
+  $('#my-select').multiSelect();
+  $('#my-select2').multiSelect();
+</script>
+
+<script type="text/javascript">
+
+function initMap() {
+  const LatLngCenter = { lat: 47.6200, lng: -122.3331 };
+  map = new google.maps.Map(document.getElementById('map'), {
+    center:LatLngCenter,
+    zoom: 11,
+    styles: [
+      { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+      {
+        featureType: "administrative.locality",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#f8f9f9" }],
+      },
+      {
+        featureType: "poi",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "geometry",
+        stylers: [{ color: "#263c3f" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#6b9a76" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ color: "#38414e" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#212a37" }],
+      },
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#9ca5b3" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry",
+        stylers: [{ color: "#746855" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#1f2835" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#f3d19c" }],
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [{ color: "#2f3948" }],
+      },
+      {
+        featureType: "transit.station",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [{ color: "#17263c" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#515c6d" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.stroke",
+        stylers: [{ color: "#17263c" }],
+      },
+    ],
+
+  });
+
+  const policeStations= [
+      [{lat: 47.60444157585695, lng: -122.32901623504706},"Police Headquarters"],
+      [{lat: 47.70311934719192, lng: -122.3348942171906}, "North Precinct"],
+      [{lat: 47.7031265674002, lng: -122.33469036931594}, "West Precinct"], 
+      [{lat: 47.615501536656204, lng: -122.31747113863186}, "East Precinct"], 
+      [{lat: 47.53870847251913, lng: -122.29335439815144}, "South Precinct"],
+      [{lat: 47.53612038978463, lng: -122.36200425008882}, "Southwest Precinct"],
+      [{lat: 47.65498456890645, lng: -122.3121845650886},"University District"]
+      ];
+
+  // new google.maps.Marker({
+  //   position: LatLngCenter,
+  //   map,
+  //   title: "Hello World!",
+  // });
+  var iconBase= "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+  
+  for(i = 0; i < policeStations.length; i++) {
+    new google.maps.Marker({
+      position: policeStations[i][0], 
+      map,
+      title: policeStations[i][1],
+      icon: iconBase + 'parking_lot_maps.png'
+    });
+  }
+
+  
+}
+</script>
+<script async defer 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkLGvS8jgY3dcDC6wKzyHahN-8IMh4ifk&callback=initMap">
+</script>
+
+
+
+
+</div>
+
+</body>
